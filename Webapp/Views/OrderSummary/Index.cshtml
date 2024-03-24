@@ -1,0 +1,125 @@
+﻿@model List<HSBCReward.Models.product>
+@{
+    ViewBag.Title = "Order Summary";
+}
+
+
+<main id="main" role="main">
+    <div class="container-fluid">
+       
+        <ul class="stepsWrap d-flex justify-content-between">
+            <li class="activated"><span>1</span><p>View Cart</p></li>
+            <li class="activated"><span>2</span><p>Shipping</p></li>
+            <li class="activated"><span>3</span><p>Preview</p></li>
+            <li class="active"><span>4</span><p>Order Summary</p></li>
+        </ul>
+
+        <h5 class="mt-4"><b>Congratulations!</b></h5>
+        <p class="mb-0">Your order is placed against HSBC VISA PLATINUM CARD eding with card number <span class="text-theme">.... .... .... 9868</span></p>
+        <div class="alert alert-success mb-0">
+            The request shall be processed within 2 working days. Once approved, your gift(s) should reach you within 15 working days via courier, whereas e-gift voucher(s) should reach you within 7 working days via email/SMS on the below mentioned details. Handling charges of INR 50/- per dedemption will be levied for HSBC Classic, Gold, Smart Value and Platinum Credit Cards, except on donation requests.
+        </div>
+        <p class="mt-0"><b>Note: Your reward points will be refreshed after your redemption request has been processed.</b></p>
+        <h5 class="mt-5"><b>Order Preview</b></h5>
+        <div class="table-responsive cartTblWrap">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Item Code</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Points</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+
+                        <tr>
+                            <td>@product.global_code</td>
+                            <td>@product.brand_name</td>
+                            <td>
+                                @product.quantity
+                            </td>
+                            <td>@product.final_landed_price</td>
+                            <td class="totalPrice" id="totalPrice_@product.global_code">@(Convert.ToInt32(product.final_landed_price) * product.quantity)</td>
+
+                        </tr>
+
+                    }
+
+                    <tr>
+                        <td style="border-bottom: 1px solid #dee2e6;"></td>
+                        <td style="border-bottom: 1px solid #dee2e6;"></td>
+                        <td style="border-bottom: 1px solid #dee2e6;"></td>
+                        <td style="border-bottom: 1px solid #dee2e6;">Total</td>
+                        <td style="border-bottom: 1px solid #dee2e6;">@Model.Sum(p => Convert.ToInt32(p.final_landed_price) * p.quantity)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4>Shiping Address</h4>
+        <hr>
+
+        <h6 class="text-uppercase">Tapan Kamal Das</h6>
+        <p>Items will be delivered to your credit card statement mailing address updated in the Bank records.</p>
+        <p>Electronic gift vouchers will be delivered only via email/SMS on the registered email ID and mobile number below</p>
+        <h6>9834324325</h6>
+        <h6>aaaa@gamil.com</h6>
+        <hr class="mt-5">
+        <p class="mb-5"><b>Disclaimer:</b> In case your credit card statement mailing address need to be updated, please reach out to your nearest HSBC India Branch or call HSBC PhoneBanking prior to placing the request to avoid incoreect delivery</p>
+        <div class="text-right mb-5">
+            <button type="button" class="btn btn-theme  ripple-effect   text-uppercase" onclick="proceed()">Complete</button>
+        </div>
+    </div>
+</main>
+
+
+<script>
+    $(document).ready(function () {
+
+
+        $('.searchdrtogle').click(function () {
+            $('.search-txtWrp').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+
+        $('.qtyVal').on('change', function () {
+            var quantity = $(this).val();
+            var price = $(this).data('price');
+            var totalPrice = parseInt(quantity) * parseInt(price);
+            $(this).closest('tr').find('.totalPrice').text(totalPrice);
+            var productCode = $(this).attr('id').split('_')[1];
+            $('#totalPrice_' + productCode).text(totalPrice);
+            updateTotalAmount();
+            var updatedValue = quantity
+            ProductId = $(this).data('productid');
+        });
+
+
+        function updateTotalAmount() {
+            var totalAmount = 0;
+            $('.totalPrice').each(function () {
+                totalAmount += parseInt($(this).text());
+
+            });
+
+            $('#totalAmount').text(totalAmount);
+        }
+
+
+    });
+
+
+    function proceed() {
+       // Generate the URL for the controller action using Url.Action
+       var url = '@Url.Action("Index", "Home")'; // Replace "Action" and "Controller" with your actual action and controller names
+
+       // Redirect to the specified URL
+       window.location.href = url;
+   }
+      
+</script>
+

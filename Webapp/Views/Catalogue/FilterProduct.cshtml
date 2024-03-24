@@ -1,0 +1,24 @@
+﻿@model HSBCReward.Models.ProductFilterViewModel
+
+
+
+   
+       @foreach (var product in Model.Products)
+        {
+
+
+            <div class=" card col col-lg-3 col-md-4 col-sm-4 col-6 p-2 border-0">
+                <div class="product-box border rounded">
+                    <img data-toggle="modal" data-target="#ProductDetails" data-productid="@product.id" class="card-img-top img-fluid" src="@product.images"  alt="Card image cap">
+                    <div class="card-body">
+                        <h6 class="card-title font-weight-normal" data-toggle="modal" data-target="#ProductDetails" data-productid="@product.id">@product.vendor_name</h6>
+                        <h6 class="card-title " style="color: rgb(95, 95, 95); font-size: 14px !important;" data-toggle="modal" data-target="#ProductDetails" data-productid="@product.id">Item Code: @product.global_code</h6>
+
+                        <h6 class="card-text text-theme font-weight-bold" data-toggle="modal" data-target="#ProductDetails" data-productid="@product.id">@product.final_landed_price <small>points</small></h6>
+                    </div>
+                </div>
+            </div>
+        }
+    
+
+

@@ -1,0 +1,242 @@
+﻿@model List<HSBCReward.Models.product>
+@{
+    ViewBag.Title = "Cart";
+}
+
+
+
+<main id="main" role="main">
+        <div class="container-fluid">
+          
+            <ul class="stepsWrap d-flex justify-content-between">
+                <li class="active"><span>1</span><p>View Cart</p></li>
+                <li><span>2</span><p>Shipping</p></li>
+                <li><span>3</span><p>Preview</p></li>
+                <li><span>4</span><p>Order Summary</p></li>
+            </ul>
+
+            <h5><b>Cart</b></h5>
+            <div class="table-responsive cartTblWrap">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Brand Logo</th>
+                            <th>Item Code</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Points</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                          
+
+                            <tr>
+                                <td><img  src="@product.images" class="cartPImg"></td>
+                                <td>@product.global_code</td>
+                                <td>@product.brand_name</td>
+                                <td style="min-width: 120px;">
+                                    <div class="d-flex align-items-center">
+                                        <div class="form-group has-float-label mb-0">
+                                            <input data-productid="@product.id" class="form-control qtyVal" id="qtyVal_@product.global_code" type="text" placeholder="Quantity" value="@product.quantity" data-price="@product.final_landed_price" />
+                                            <label for="qtyVal_@product.global_code">Quantity</label>
+                                        </div>
+                                        <div class="plus-minus-btn" style="clear: both;">
+                                            <button type="button" class="qty_plus qtybtns" data-product-code="@product.global_code" style="margin-top: -9px;">+</button>
+                                            <button type="button" class="qty_minus qtybtns" data-product-code="@product.global_code">-</button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@product.final_landed_price</td>
+                                <td class="totalPrice" id="totalPrice_@product.global_code">@(Convert.ToInt32(product.final_landed_price) * product.quantity)</td>
+                                <td class="text-theme delete-item" data-product-code="@product.terms"><i class="bi bi-trash-fill"></i></td>
+
+                            </tr>
+
+                        }
+                        <tr>
+                            <td style="border-bottom: 1px solid #dee2e6;"></td>
+                            <td style="border-bottom: 1px solid #dee2e6;"></td>
+                            <td style="border-bottom: 1px solid #dee2e6;"></td>
+                            <td style="border-bottom: 1px solid #dee2e6;"></td>
+                            <td style="border-bottom: 1px solid #dee2e6;">Total</td>
+                            <td id="totalAmount" style="border-bottom: 1px solid #dee2e6;">@Model.Sum(p => Convert.ToInt32(p.final_landed_price) * p.quantity)</td>
+                            <td style="border-bottom: 1px solid #dee2e6;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-2">The redemption of any product in the catalogue is subject to TheHonKong and Shanghai Banking Corporation Limited prevailing Terms and conditions governing the Bank's Rewards Programme. In particular, please note that the Bank makes no warranty whatsoever as to the quality of fitness for any particular purpose of any product show in the catalogue. Any dispute you may have concering any product shall be settle with the relevant service establishment and/or supplier which supplied the product. The bank will no responsibility fo resolving such disputes or for the dispute itself.</p>
+
+            <h6><b>Note</b></h6>
+            <ul>
+                <li>No delivery will be made to P.O. Box addresses or to addresses outside India</li>
+                <li>Kindly select products from the applicable credit category under the rewards catalogue to ensure successful redemption</li>
+                <li>Product requested against redemption of points will be delivered to your registered mailing address as per blank records. Should  you wish to update your mailing address then please call PhoneBanking OR visit your nearest HSBC branch for assistance, prior to placing your redemption request.</li>
+            </ul>
+            <div class="text-right mb-5">
+                <button type="button" class="btn transBtn" onclick="BackAction()">Back</button>
+                <button type="button" class="btn btn-theme ripple-effect" onclick="proceedToAction()">Proceed</button>
+            </div>
+        </div>
+    </main>
+
+   
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+
+
+
+        $(document).ready(function ()
+        {
+
+            var ProductId;
+            $('.qty_plus').click(function (e) {
+                e.preventDefault();
+                var productCode = $(this).data('product-code');
+                var input = $('#qtyVal_' + productCode);
+                var quantity = parseInt(input.val());
+                input.val(quantity + 1).change();
+                var updatedValue = quantity + 1
+
+                updateQuantity(updatedValue);
+            });
+
+            $('.qty_minus').click(function (e) {
+                e.preventDefault();
+                var productCode = $(this).data('product-code');
+                var input = $('#qtyVal_' + productCode);
+                var quantity = parseInt(input.val());
+                if (quantity > 1) {
+                    input.val(quantity - 1).change();
+                }
+                var updatedValue = quantity - 1
+                updateQuantity(updatedValue);
+            });
+
+            $('.searchdrtogle').click(function () {
+                $('.search-txtWrp').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+
+            $('.qtyVal').on('change', function () {
+                var quantity = $(this).val();
+                var price = $(this).data('price');
+                var totalPrice = parseInt(quantity) * parseInt(price);
+                $(this).closest('tr').find('.totalPrice').text(totalPrice);
+                var productCode = $(this).attr('id').split('_')[1];
+                $('#totalPrice_' + productCode).text(totalPrice);
+                updateTotalAmount();
+                var updatedValue = quantity
+                ProductId = $(this).data('productid');
+               updateQuantity(updatedValue);
+            });
+
+           
+            function updateTotalAmount()
+            {
+                var totalAmount = 0;
+                $('.totalPrice').each(function () {
+                    totalAmount += parseInt($(this).text());
+
+                });
+
+                $('#totalAmount').text(totalAmount);
+            }
+
+            function updateQuantity(inputField) {
+                var productId = ProductId;
+                var newQuantity = inputField;
+
+                // AJAX call to update quantity
+                $.ajax({
+                    url: '/Cart/UpdateQuantity',
+                    method: 'POST',
+                    data: { productId: productId, quantity: newQuantity },
+                    success: function (response) {
+                        // Handle success, if needed
+                        console.log('Quantity updated successfully');
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+
+
+
+        $('.delete-item').click(function (event)
+        {
+            // Cache $(this) for performance
+            var $deleteButton = $(this);
+
+            // Prevent the default action of the link/button
+            event.preventDefault();
+
+            // Simplified confirmation message
+            if (!confirm('Are you sure you want to delete this item?')) {
+                return;
+            }
+
+            // Retrieve product code using data attribute
+            var productCode = $deleteButton.data('product-code');
+
+            // Send AJAX request to delete item
+            $.ajax({
+                url: '/Cart/DeleteItem',
+                method: 'POST',
+                data: { productCode: productCode },
+                success: function (response) {
+                    // Reload the page after successful deletion
+                    success1();
+                    window.location.reload();
+                    // Handle success (if needed)
+                    // For example, remove the row from the table
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
+            });
+        });
+
+        var useEdge = false
+        var useDebug = false
+        function success1() {
+            nativeToast({
+                message: 'Deleted successfully',
+                type: 'success',
+                edge: useEdge,
+                debug: useDebug,
+                position: 'top',
+            })
+        }
+ function proceedToAction() {
+        // Generate the URL for the controller action using Url.Action
+        var url = '@Url.Action("Index", "ShippingDetail")'; // Replace "Action" and "Controller" with your actual action and controller names
+
+        // Redirect to the specified URL
+        window.location.href = url;
+    }
+        function BackAction() {
+       // Generate the URL for the controller action using Url.Action
+       var url = '@Url.Action("Index", "Catalogue")'; // Replace "Action" and "Controller" with your actual action and controller names
+
+       // Redirect to the specified URL
+       window.location.href = url;
+   }
+
+
+
+    </script>
+
+
+

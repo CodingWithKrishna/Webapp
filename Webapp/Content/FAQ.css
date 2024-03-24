@@ -1,0 +1,49 @@
+﻿@font-face {
+    font-family: 'UniversArabicforHSBC';
+    src: url("/fonts/UniversArabicforHSBC.woff") format("woff"), url("/fonts/UniversArabicforHSBCBold.woff") format("woff"), url("/fonts/UniversArabicforHSBCLight.woff") format("woff"), url("/fonts/UniversArabicforHSBCThin.woff") format("woff");
+    /* Add other font properties if needed, like font-weight and font-style */
+}
+
+p1 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgb(51, 51, 51);
+    font-family: 'UniversArabicforHSBC',sans-serif;
+    
+}
+p2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgb(51, 51, 51);
+    font-family: 'UniversArabicforHSBC',sans-serif;
+}
+
+    p,ul {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: black;
+    font-family: UniversArabicforHSBC;
+}
+
+
+
+ul {
+    margin-bottom: 20px;
+    list-style-type: disc;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+    .container{
+margin-left:0;
+    }

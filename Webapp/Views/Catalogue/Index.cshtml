@@ -1,0 +1,761 @@
+﻿@model IEnumerable<HSBCReward.Models.ProductListViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main id="main" role="main">
+    <div id="content" class="container-fluid container-main  bg-white nopadding-mobile">
+
+        <div class="row row-alt">
+            <div id="filters" class="col-lg-3 col-md-4 col-sm-12 d-none d-md-block animation">
+                <div id="fixedfilter">
+
+                    <!-- For Mobile -->
+                    <div class="bg-theme text-left text-white p-3 d-md-none" style="position: fixed; top:0; left:0; right:0; z-index: 3004; float: right;">
+                        <a class="filterclose d-md-none ripple-effect lh-0 pt-1 pr-3 float-left"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg><span class="ink animate" style="height: 34.3958px; width: 34.3958px; top: 4.41147px; left: -8.58853px;"></span></a>
+                        <h5 class="mb-0 float-left">FILTERS</h5>
+                        <a class="filterReset float-right text-white" data-toggle="tooltip" data-placement="right" title="Tooltip on top" onclick="filterclear()">Clear All</a>
+                    </div>
+                    <!-- For Mobile End-->
+                    <div id="accordion" class="filterbox border-bottom mb-4">
+                        <div class="card bg-l p-0 pt-1 pb-1 ">
+                            <div class="">
+                                <h5 class="mb-0 float-left">Filters</h5>
+                                <a id="clearAllLink" href="#" class="filterReset float-right " data-toggle="tooltip" data-placement="bottom" title="Tooltip on top"><small>Clear All</small></a>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="filter">
+                        <div id="accordion" class="filterbox">
+
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0 pos-relative">
+                                        <a class="btn btn-link btn-block dropdown-toggle d-flex justify-content-between align-items-center" data-menu="caret" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne">
+                                            Point Range
+                                        </a>
+                                        <span class="ml-auto text-secondary singleClearWrap" id="rangeFilter">Clear</span>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne3" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body" style="padding-left:5px; ">
+                                        <div class="mx-3 mt-5 mb-3" id="steps-slider"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <a class="btn btn-link btn-block dropdown-toggle d-flex justify-content-between align-items-center" data-menu="caret" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne">
+                                            Category
+                                        </a>
+                                        <span id="categoryFilter" class=" filterReset ml-auto text-secondary singleClearWrap">Clear</span>
+
+                                    </h5>
+                                </div>
+                                <div id="collapseOne2" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        @foreach (var item in Model)
+                                        {
+                                            foreach (var category in item.Categories)
+                                            {
+                                                <div class="form-radio radio">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="categoryRadioButton" value="@category" /><i class="helper"></i>@category
+
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <a class="btn btn-link btn-block dropdown-toggle d-flex justify-content-between align-items-center" data-menu="caret" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Sub Category
+                                        </a>
+                                        <span id="subcategoryFilter" class=" filterReset ml-auto text-secondary singleClearWrap">Clear</span>
+
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @foreach (var item in Model)
+                                        {
+                                            foreach (var subcategory in item.Subcategories)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="subcategoryCheckbox" value="@subcategory" />
+                                                        <i class="helper"></i>@subcategory
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <a class="btn btn-link btn-block dropdown-toggle d-flex justify-content-between align-items-center" data-menu="caret" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne">
+                                            Brands
+                                        </a>
+                                        <span id="brandFilter" class=" filterReset ml-auto text-secondary singleClearWrap">Clear</span>
+
+                                    </h5>
+                                </div>
+                                <div id="collapseOne1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @foreach (var item in Model)
+                                        {
+                                            foreach (var brandName in item.Brands)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="brandCheckbox" value="@brandName" />
+                                                        <i class="helper"></i>@brandName
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Side Categories -->
+
+            <div class="col-lg-9 col-md-8 col-sm-12 nopadding-mobile">
+                <h5 class="pl-2 pt-1 d-none d-md-block"><span class="text-theme">Filtered</span> Rewards </h5>
+                <div id="FilterProduct" class="row mr-auto ml-auto">
+                    @{
+                        var filterlist = new HSBCReward.Models.ProductFilterViewModel();
+                        foreach (var item in Model)
+                        {
+                            filterlist.Products = item.Products;
+
+
+                        }
+                        Html.RenderPartial("FilterProduct", filterlist);
+
+                    }
+                </div>
+
+
+                <!-- Modal Product Details -->
+                <div class="modal fade fullscreenModal" id="ProductDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header c-p">
+                                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                <a data-dismiss="modal" aria-label="Close" class="d-md-none ripple-effect lh-0"><i data-feather="arrow-left"></i></a>
+                                <!-- <a class="d-md-none text-white float-right ml-auto ripple-effect" >VIEW CART</a> -->
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row ">
+                                    <div class="col-md-5 col-sm-12">
+                                        <div class="img_producto_container" data-scale="1.6">
+                                            <div class="dslc-lightbox-image img_producto"
+                                                 style="background-image:url('')">
+                                            </div>
+                                        </div>
+                                        <div class="text-center"><span class="zoomTxt"><i class="bi bi-plus-circle"></i> Hover to Zoom</span></div>
+                                    </div>
+                                    <div class="col-md-7 col-sm-12">
+                                        <div class="app">
+                                            <h4 class="font-weight-normal pt-1 pb-1" id="pName"></h4>
+                                            <h3 class="card-text text-theme font-weight-normal  pt-2 pb-2"> <span id="points"></span><small>pts</small> </h3>
+
+
+                                            <div class="row">
+                                                <div class="col-6 d-flex">
+                                                    <div class="form-group has-float-label" style="width: 90%;">
+                                                        <input class="form-control" id="qtyVal" type="text" placeholder="Quantity" value="1" />
+                                                        <label for="qtyVal">Quantity</label>
+                                                    </div>
+                                                    <div class="plus-minus-btn" style="width: 10%;clear: both;">
+                                                        <button type="button" class="qty_plus qtybtns">+</button>
+                                                        <button type="button" class="qty_minus qtybtns">-</button>
+                                                    </div>
+                                                    <div>
+                                                        <input type="hidden" name="itemcode" id="itemcode" value="123" />
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-theme float-right ripple-effect btn-add-to-cart" style="width:100%;">Add to cart</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class=" p-3 mt-3">
+                                        <nav>
+                                            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Description</a>
+                                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">T&C</a>
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.</div>
+                                            <div class="tab-pane fade p-3" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<style>
+    .filterbox .card-body {
+        overflow-y: auto;
+        max-height: 15rem;
+    }
+</style>
+
+<script src="~/Scripts/nouislider.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+        $(document).ready(function () {
+            $('#ProductDetails').on('show.bs.modal', function (event) {
+
+        var button = jQuery(event.relatedTarget); // Button that triggered the modal
+        var productId = button.data('productid'); // Extract product ID from data-* attributes
+        var modal = jQuery(this);
+
+        // AJAX call to fetch product details based on the product ID
+        $.ajax({
+            @*url: '@Url.Action("GetProductDetails", "CatalogueController")',*@ // Adjust the ControllerName to your actual controller name
+            url: '/Catalogue/GetProductDetails/' + productId ,
+            type: 'GET',
+            data: { productId: productId },
+            success: function (response) {
+                // Populate modal content with product details received from the server
+                modal.find('#exampleModalLongTitle').text(response.productBrand);
+                modal.find('.img_producto').css('background-image', 'url("' + response.productImage + '")');
+                modal.find('#pName').text(response.productName);
+                modal.find('#nav-home').html(response.productDescription);
+                modal.find('#points').html(response.productPrice);
+                modal.find('#nav-contact').html(response.productTerms);
+                // Update other modal content as needed
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+            }
+        });
+            });
+
+
+            $('#ProductDetails').on('show.bs.modal', function (event) {
+                // Your existing code to fetch product details...
+
+                // Event listener for "Add to cart" button
+                $('#ProductDetails').on('click', '.btn-add-to-cart', function () {
+                    var button = jQuery(event.relatedTarget);
+                    var quantity = parseInt($('#qtyVal').val()); // Get the quantity value
+
+                    var productId = button.data('productid');
+                    // AJAX call to add the product to the cart
+                    $.ajax({
+                        url: '/Catalogue/AddToCart', // Adjust the URL to match your controller action
+                        type: 'POST',
+                        data: {
+                            pId: productId,
+                            quantity: quantity,
+                        },
+                        success: function (response) {
+                            // Handle success response
+                            $('#ProductDetails').modal('hide'); // Close the modal popup
+                            success1();
+                           ///* window.location.reload();*/
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle error
+                            console.error('Error adding product to cart:', error);
+                        }
+                    });
+                });
+            });
+});
+
+
+    var useEdge = false
+    var useDebug = false
+    function success1() {
+        nativeToast({
+            message: 'Item successfully added to cart!',
+            type: 'success',
+            edge: useEdge,
+            debug: useDebug,
+            position: 'top',
+        })
+    }
+
+ document.addEventListener("DOMContentLoaded", function (event) {
+    var stepsSlider = document.getElementById('steps-slider');
+    var subcategoryCheckboxes = document.getElementsByName('subcategoryCheckbox');
+    var radioButtons = document.getElementsByName('categoryRadioButton');
+     var brandCheckboxes = document.getElementsByName('brandCheckbox');
+
+
+    // Initialize range slider
+    noUiSlider.create(stepsSlider, {
+        start: [0, @foreach (var item in Model) { @item.MaximumPrizeRange }],
+        tooltips: [wNumb({ decimals: 0 }), wNumb({ decimals: 0 })],
+        format: wNumb({
+            decimals: 0,
+            thousand: ','
+        }),
+        step: 500,
+        connect: true,
+        range: {
+            'min': [0],
+            'max': [ @foreach (var item in Model) { @item.MaximumPrizeRange }]
+        }
+    });
+
+    // Event listener for range slider change
+    stepsSlider.noUiSlider.on('set', function (values, handle) {
+        var minPoint = $(".noUi-handle-lower .noUi-tooltip").html();
+        var maxPoint = $(".noUi-handle-upper .noUi-tooltip").html();
+        var selectedCategory = null; // Initialize selectedCategory
+        var selectedSubcategories = []; // Initialize selectedSubcategories
+        var selectedBrands = [];
+        var searchValue = $(".search-input").val();
+
+        // Loop through radio buttons to find the selected category
+        radioButtons.forEach(function(radioButton) {
+            if (radioButton.checked) {
+                selectedCategory = radioButton.value;
+            }
+        });
+
+        // Loop through checkboxes to find the selected subcategories
+        subcategoryCheckboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                selectedSubcategories.push(checkbox.value);
+            }
+        });
+
+        // Loop through checkboxes to find the selected brands
+        brandCheckboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                selectedBrands.push(checkbox.value);
+            }
+        });
+
+        sendDataToServer(minPoint, maxPoint, selectedCategory, selectedSubcategories, selectedBrands, searchValue);
+    });
+
+    // Event listener for radio button change
+    radioButtons.forEach(function(radioButton) {
+        radioButton.addEventListener('change', function(event) {
+            var minPoint = $(".noUi-handle-lower .noUi-tooltip").html();
+            var maxPoint = $(".noUi-handle-upper .noUi-tooltip").html();
+            var selectedCategory = event.target.value;
+            var selectedSubcategories = []; // Initialize selectedSubcategories
+            var selectedBrands = [];
+
+            // Loop through checkboxes to find the selected subcategories
+            subcategoryCheckboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    selectedSubcategories.push(checkbox.value);
+                }
+            });
+
+            // Loop through checkboxes to find the selected brands
+            brandCheckboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    selectedBrands.push(checkbox.value);
+                }
+            });
+
+            sendDataToServer(minPoint, maxPoint, selectedCategory, selectedSubcategories, selectedBrands);
+        });
+    });
+
+    // Event listener for checkbox change
+    subcategoryCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function(event) {
+            var minPoint = $(".noUi-handle-lower .noUi-tooltip").html();
+            var maxPoint = $(".noUi-handle-upper .noUi-tooltip").html();
+            var selectedCategory = null; // Initialize selectedCategory
+            var selectedSubcategories = [];
+            var selectedBrands = [];
+            var searchValue = $(".search-input").val();
+
+            // Loop through radio buttons to find the selected category
+            radioButtons.forEach(function(radioButton) {
+                if (radioButton.checked) {
+                    selectedCategory = radioButton.value;
+                }
+            });
+
+            // Loop through checkboxes to find the selected subcategories
+            subcategoryCheckboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    selectedSubcategories.push(checkbox.value);
+                }
+            });
+
+            // Loop through checkboxes to find the selected brands
+            brandCheckboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    selectedBrands.push(checkbox.value);
+                }
+            });
+
+            // Loop through checkboxes to find the selected brands
+            brandCheckboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    selectedBrands.push(checkbox.value);
+                }
+            });
+
+            sendDataToServer(minPoint, maxPoint, selectedCategory, selectedSubcategories, selectedBrands,searchValue);
+        });
+    });
+
+     // Add event listener for the "Clear All Filters" link
+     var clearAllLink = document.querySelector("#clearAllLink");
+     clearAllLink.addEventListener("click", function (event) {
+         event.preventDefault(); // Prevent default link behavior
+         clearAllFilters(); // Call the clearAllFilters function
+
+     });
+
+     // Add event listener for the "Clear range Filters" link
+     var clearrangeLink = document.querySelector("#rangeFilter");
+     clearrangeLink.addEventListener("click", function (event) {
+         event.preventDefault(); // Prevent default link behavior
+         rangeFilter(); // Call the clearAllFilters function
+
+     });
+
+
+     // Add event listener for the "Clear category Filters" link
+     var clearcategoryLink = document.querySelector("#categoryFilter");
+     clearcategoryLink.addEventListener("click", function (event) {
+         event.preventDefault(); // Prevent default link behavior
+         categoryFilter(); // Call the clearAllFilters function
+
+     });
+
+
+
+     // Add event listener for the "Clear subCategory Filters" link
+     var clearsubcategoryLink = document.querySelector("#subcategoryFilter");
+     clearsubcategoryLink.addEventListener("click", function (event) {
+         event.preventDefault(); // Prevent default link behavior
+         subCategoryFilter(); // Call the clearAllFilters function
+
+     });
+
+
+     // Add event listener for the "Clear brand Filters" link
+     var clearbrandLink = document.querySelector("#brandFilter");
+     clearbrandLink.addEventListener("click", function (event) {
+         event.preventDefault(); // Prevent default link behavior
+         brandFilter(); // Call the clearAllFilters function
+
+     });
+
+
+     // Event listener for checkbox change (brand)
+     brandCheckboxes.forEach(function (checkbox) {
+         checkbox.addEventListener('change', function (event) {
+             var minPoint = $(".noUi-handle-lower .noUi-tooltip").html();
+             var maxPoint = $(".noUi-handle-upper .noUi-tooltip").html();
+             var selectedCategory = null;
+             var selectedSubcategories = [];
+             var selectedBrands = [];
+             var searchValue = $(".search-input").val();
+
+             // Loop through radio buttons to find the selected category
+             radioButtons.forEach(function (radioButton) {
+                 if (radioButton.checked) {
+                     selectedCategory = radioButton.value;
+                 }
+             });
+
+             // Loop through checkboxes to find the selected subcategories
+             subcategoryCheckboxes.forEach(function (checkbox) {
+                 if (checkbox.checked) {
+                     selectedSubcategories.push(checkbox.value);
+                 }
+             });
+
+             // Loop through checkboxes to find the selected brands
+             brandCheckboxes.forEach(function (checkbox) {
+                 if (checkbox.checked) {
+                     selectedBrands.push(checkbox.value);
+                 }
+             });
+
+             sendDataToServer(minPoint, maxPoint, selectedCategory, selectedSubcategories, selectedBrands,searchValue);
+         });
+     });
+
+     //reset filter for range
+     function rangeFilter(){
+         // Clear range slider
+         var selectedCategory = null;
+         var selectedSubcategories = [];
+         var selectedBrands = [];
+         var searchValue = $(".search-input").val();
+
+         // Loop through radio buttons to find the selected category
+         radioButtons.forEach(function (radioButton) {
+             if (radioButton.checked) {
+                 selectedCategory = radioButton.value;
+             }
+         });
+
+         // Loop through checkboxes to find the selected subcategories
+         subcategoryCheckboxes.forEach(function (checkbox) {
+             if (checkbox.checked) {
+                 selectedSubcategories.push(checkbox.value);
+             }
+         });
+
+         // Loop through checkboxes to find the selected brands
+         brandCheckboxes.forEach(function (checkbox) {
+             if (checkbox.checked) {
+                 selectedBrands.push(checkbox.value);
+             }
+         });
+
+         var stepsSlider = document.getElementById('steps-slider');
+         stepsSlider.noUiSlider.reset();
+
+         sendDataToServer(0, 9400, selectedCategory, selectedSubcategories, selectedBrands,searchValue);
+     }
+
+
+     //reset filter for Category
+     function categoryFilter() {
+         var minPoint = $(".noUi-handle-lower .noUi-tooltip").html();
+         var maxPoint = $(".noUi-handle-upper .noUi-tooltip").html();
+         var selectedSubcategories = [];
+         var selectedBrands = [];
+         var searchValue = $(".search-input").val();
+
+         // Loop through checkboxes to find the selected subcategories
+         subcategoryCheckboxes.forEach(function (checkbox) {
+             if (checkbox.checked) {
+                 selectedSubcategories.push(checkbox.value);
+             }
+         });
+
+         // Loop through checkboxes to find the selected brands
+         brandCheckboxes.forEach(function (checkbox) {
+             if (checkbox.checked) {
+                 selectedBrands.push(checkbox.value);
+             }
+         });
+
+         // Clear radio buttons
+         var radioButtons = document.getElementsByName('categoryRadioButton');
+         radioButtons.forEach(function (radioButton) {
+             radioButton.checked = false;
+         });
+
+         sendDataToServer(minPoint,maxPoint , null, selectedSubcategories, selectedBrands,searchValue);
+     }
+
+
+     //reset filter for SubCategory
+     function subCategoryFilter() {
+         var minPoint = $(".noUi-handle-lower .noUi-tooltip").html();
+         var maxPoint = $(".noUi-handle-upper .noUi-tooltip").html();
+         var selectedCategory = null;
+         var selectedBrands = [];
+         var searchValue = $(".search-input").val();
+
+         // Loop through radio buttons to find the selected category
+         radioButtons.forEach(function (radioButton) {
+             if (radioButton.checked) {
+                 selectedCategory = radioButton.value;
+             }
+         });
+
+         // Loop through checkboxes to find the selected brands
+         brandCheckboxes.forEach(function (checkbox) {
+             if (checkbox.checked) {
+                 selectedBrands.push(checkbox.value);
+             }
+         });
+
+         // Clear checkboxes
+         var subcategoryCheckboxes = document.getElementsByName('subcategoryCheckbox');
+         subcategoryCheckboxes.forEach(function (checkbox) {
+             checkbox.checked = false;
+         });
+
+         sendDataToServer(minPoint, maxPoint, selectedCategory, [], selectedBrands,searchValue);
+     }
+
+
+     //reset filter for brand
+     function brandFilter() {
+         var minPoint = $(".noUi-handle-lower .noUi-tooltip").html();
+         var maxPoint = $(".noUi-handle-upper .noUi-tooltip").html();
+         var selectedCategory = null;
+         var selectedSubcategories = [];
+         var searchValue = $(".search-input").val();
+
+         // Loop through radio buttons to find the selected category
+         radioButtons.forEach(function (radioButton) {
+             if (radioButton.checked) {
+                 selectedCategory = radioButton.value;
+             }
+         });
+
+         // Loop through checkboxes to find the selected subcategories
+         subcategoryCheckboxes.forEach(function (checkbox) {
+             if (checkbox.checked) {
+                 selectedSubcategories.push(checkbox.value);
+             }
+         });
+
+         // Clear brand checkboxes
+         var brandCheckboxes = document.getElementsByName('brandCheckbox');
+         brandCheckboxes.forEach(function (checkbox) {
+             checkbox.checked = false;
+         });
+
+
+         sendDataToServer(minPoint, maxPoint, selectedCategory, selectedSubcategories,[],searchValue);
+     }
+
+
+
+     //clear all Filters
+     function clearAllFilters() {
+         var searchValue = $(".search-input").val();
+         // Clear range slider
+         var stepsSlider = document.getElementById('steps-slider');
+         stepsSlider.noUiSlider.reset();
+
+         // Clear radio buttons
+         var radioButtons = document.getElementsByName('categoryRadioButton');
+         radioButtons.forEach(function (radioButton) {
+             radioButton.checked = false;
+         });
+
+         // Clear checkboxes
+         var subcategoryCheckboxes = document.getElementsByName('subcategoryCheckbox');
+         subcategoryCheckboxes.forEach(function (checkbox) {
+             checkbox.checked = false;
+         });
+
+         // Clear brand checkboxes
+         var brandCheckboxes = document.getElementsByName('brandCheckbox');
+         brandCheckboxes.forEach(function (checkbox) {
+             checkbox.checked = false;
+         });
+
+         // Trigger AJAX request to update product list with default filters
+         sendDataToServer(0, 9400, null, [], [],searchValue);
+     }
+
+
+     // Event listener for keyup event in search box
+     $('.search-input').keyup(function () {
+         var searchValue = $(this).val();
+         var minPoint = $(".noUi-handle-lower .noUi-tooltip").html();
+         var maxPoint = $(".noUi-handle-upper .noUi-tooltip").html();
+         var selectedSubcategories = [];
+         var selectedBrands = [];
+         var selectedCategory = [];
+
+         // Loop through radio buttons to find the selected category
+         radioButtons.forEach(function (radioButton) {
+             if (radioButton.checked) {
+                 selectedCategory = radioButton.value;
+             }
+         });
+
+
+
+
+         // Loop through checkboxes to find the selected subcategories
+         subcategoryCheckboxes.forEach(function (checkbox) {
+             if (checkbox.checked) {
+                 selectedSubcategories.push(checkbox.value);
+             }
+         });
+
+         // Loop through checkboxes to find the selected brands
+         brandCheckboxes.forEach(function (checkbox) {
+             if (checkbox.checked) {
+                 selectedBrands.push(checkbox.value);
+             }
+         });
+
+
+
+         //performSearch(searchValue);
+         sendDataToServer(minPoint, maxPoint, selectedCategory, selectedSubcategories, selectedBrands, searchValue)
+     });
+
+
+
+    // Function to send data to server via AJAX
+     function sendDataToServer(minPoint, maxPoint, category, subcategories, brands,search) {
+        $.ajax({
+            url: '@Url.Action("FilterProduct")',
+            type: 'POST',
+            data: {
+                minPoint: minPoint,
+                maxPoint: maxPoint,
+                category: category,
+                subCategory: subcategories,
+                brand: brands,
+                search: search
+            },
+            success: function (response) {
+                $('#FilterProduct').html(response);
+            },
+            error: function (xhr, status, error) {
+                // Handle error if needed
+            }
+        });
+     }
+});
+
+
+    
+</script>

@@ -1,0 +1,331 @@
+/* breakpoint and down - styles  Theme color: f9a51a   */
+@media screen and (max-width: 768px) {
+	
+	.sidebar-wrapper .sidebar-header {	 
+	  background-color: #DB0011;
+	  color: #FFFFFF;
+	}
+
+	.fullscreenModal .modal-dialog .modal-header {  		
+		background-color:#DB0011;
+		color: #FFFFFF;
+	}
+	
+	.fullscreenModal .modal-dialog .modal-footer {  
+		/* background-color:#DB0011;
+		color: #FFFFFF; */
+	}
+
+	
+}
+
+
+@media screen and (max-width: 991px) {
+	.sidebar-wrapper .sidebar-header {
+		background-color:#DB0011;
+	}
+}	
+
+
+
+.bg-theme-darker {
+    background-color: #DB0011!important;
+	filter: brightness(86%);
+	color: #FFF;
+}
+.bg-theme-dark {
+    background-color: #DB0011!important;
+	filter: brightness(93%);
+	color: #FFF;
+}
+.bg-theme {
+    background-color: #DB0011!important;
+	color: #FFF;
+}
+.bg-theme-light {
+    background-color: #DB0011!important;
+	filter: brightness(104%);
+	color: #FFF;
+}
+	
+.bg-theme-lighter {
+    background-color: #DB0011!important;
+	filter: brightness(114%);
+	color: #FFF;
+}
+
+
+.btn-theme {
+    color: #fff;
+    background-color: #DB0011;
+    border-color: #DB0011;
+}
+
+.btn-outline-theme {
+    color: #DB0011;
+    border-color: #DB0011;
+	background-color: #FFF;
+}
+
+
+.btn-hover.color-11 {      
+	background-color: #DB0011;	  
+	color: #fff;
+}
+
+.list-group-item.active {  
+    color: #fff;
+    background-color: #DB0011;
+    border-color: #DB0011;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #DB0011;
+	font-weight: 500;
+    
+}
+
+
+
+.filterbox .card-header .btn {
+	color: #DB0011;
+}
+	
+.filterbox .card-header .btn:hover{
+    color: #DB0011;
+}
+
+.radio .helper::after {
+  background-color: #DB0011;
+  border-color: #DB0011;
+}
+.radio label:hover .helper {
+  color: #DB0011;
+}
+
+.radio input:checked ~ .helper::before {
+  color: #DB0011;
+}
+
+.checkbox .helper::before, .checkbox .helper::after {
+  background-color: #DB0011; 
+}
+
+.text-theme{
+	color:#DB0011!important;
+}
+
+
+.link:hover{
+	color: #DB0011!important;
+}
+
+
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+    background: #DB0011;
+}
+
+[slider] > div > [range] {
+  background-color: #DB0011;
+}
+
+#clockdiv div > span{
+	color: #DB0011;	
+}
+
+
+#campaign-list.nav-tabs .nav-item.show .nav-link, #campaign-list.nav-tabs .nav-link.active {
+    color: #DB0011;
+    background-color: #FFF;
+    border-top: 0px solid #DB0011;	
+}
+
+
+.stepwizard-step .active{
+	color: #fff !important;
+    background-color: #DB0011 !important;
+    border-color: #DB0011 !important;
+}
+
+
+
+.header-mobile .dropdown .dropdown-menu .admin {    
+    background-color: #DB0011;
+	color: #FFF;
+}
+
+#campaign-list.nav-tabs .nav-item.show .nav-link, #campaign-list.nav-tabs .nav-link.active {	
+	border-bottom: 3px solid #DB0011;	
+}
+
+
+
+@media screen and (min-width: 992px) {
+	.navbar-light .navbar-nav .active>.nav-link{		
+		
+		color: #FFF;
+	}
+}
+
+
+
+
+.noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle {
+	background: #DB0011;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: #DB0011;
+    border-color: #DB0011;
+}
+
+
+
+.datepicker-days table thead, .datepicker-months table thead, .datepicker-years table thead, .datepicker-decades table thead, .datepicker-centuries table thead {
+    background: #DB0011;
+    color: #ffffff;
+    border-radius: 0;
+}
+
+
+
+.datepicker-days table thead, .datepicker-months table thead, .datepicker-years table thead, .datepicker-decades table thead, .datepicker-centuries table thead {
+    background: #DB0011;
+    color: #ffffff;
+    border-radius: 0;
+}
+
+.datepicker-days table thead, .datepicker-months table thead, .datepicker-years table thead, .datepicker-decades table thead, .datepicker-centuries table thead {
+    background: #DB0011;
+    color: #ffffff;
+    border-radius: 0;
+}
+
+.datepicker table tr td span.active, .datepicker table tr td span.active:hover, .datepicker table tr td span.active.disabled, .datepicker table tr td span.active.disabled:hover {
+  background-color: #DB0011;
+  background-image: none;
+}
+
+.datepicker .next.disabled, .datepicker .prev.disabled {
+    color: #DB0011;
+	background: #DB0011;
+}
+
+.datepicker table tr td span {
+    color: #DB0011 !important;
+}
+
+.datepicker table tr td{
+    color: #DB0011 !important;
+}
+
+
+
+
+
+
+.stepwizard-active{	
+	
+	font-weight: 500;
+	color: #FFF;
+}
+
+.btn-outline-theme {
+    color: #DB0011;
+    background-color: transparent;
+    background-image: none;
+    border-color: #DB0011;
+	transition: 0.3s;
+}
+
+.btn-outline-theme:hover {
+    color: #FFF;
+    background-color: #DB0011;
+}
+
+
+.page-item.active .page-link {
+    
+    color: #fff;
+    background-color: #DB0011;
+    border-color: #DB0011;
+}
+
+.page-link {
+ 
+    color: #6c757d;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.datepicker-days table thead,
+.datepicker-months table thead,
+.datepicker-years table thead,
+.datepicker-decades table thead,
+.datepicker-centuries table thead {
+	background: #DB0011;
+	color: #ffffff;
+}
+
+.datepicker table tr td span.active,
+.datepicker table tr td span.active:hover,
+.datepicker table tr td span.active.disabled,
+.datepicker table tr td span.active.disabled:hover {
+	background-color: #DB0011;
+}
+
+.datepicker .next.disabled,
+.datepicker .prev.disabled {
+	color: #DB0011;
+	background: #DB0011;
+}
+
+
+.datepicker .prev.disabled {
+	border-radius: 5px 0 0 5px !important;
+}
+
+.datepicker .next.disabled {
+	border-radius: 0 5px 5px 0 !important;
+}
+
+
+
+
+
+.datepicker table tr td span {
+	color: #DB0011 !important;
+}
+
+.datepicker table tr td {
+	color: #DB0011 !important;
+}
+
+.wizard-card[data-color="red"] .moving-tab {
+	background-color: #DB0011;
+}
+
+.wizard-footer .btn-finish {
+	color: #DB0011;
+}
+
+.datepicker-switch{ background-color: #DB0011;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+	color: #fff;
+	background-color: #DB0011;
+	border-color: #DB0011;
+}
+
+.nav-link.theme.active {
+    color: #fff;
+    background-color: #DB0011;
+}	
+
+.selected {
+    border: 3px solid #DB0011 !important;
+}

@@ -1,0 +1,442 @@
+﻿@model List<HSBCReward.Models.AdminOrderViewModel>
+
+@{
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HSBC</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-datepicker.min.css" />
+    <link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.0/b-3.0.0/b-html5-3.0.0/b-print-3.0.0/fh-4.0.0/r-3.0.0/datatables.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="~/Content/menu.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/icons.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/custom.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/adminStyle.css">
+    <link rel="stylesheet" href="~/Content/native.css" />
+
+
+</head>
+<body>
+
+    <div class="fullscreen">
+        <nav class="pcoded-navbar menu-dark navbar-default brand-default drp-icon-style1 menu-item-icon-style1 active-default title-default">
+            <div class="navbar-wrapper">
+                <div class="navbar-brand header-logo">
+                    <a href="#!" class="b-brand"><img src="~/images/HSBC_MASTER_LOGO.7e0cc4bf.svg" /></a><a href="#!" class="mobile-menu" id="mobile-collapse"><span></span></a>
+                </div>
+                <div class="navbar-content datta-scroll">
+                    <div class="scrollbar-container ps">
+                        <ul class="nav pcoded-inner-navbar">
+                            <li class="nav-item pcoded-menu-caption"><label>Navigation</label></li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" target="" href="/cms/orders">
+                                    <span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span><span class="pcoded-mtext">Orders</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" target="" href="/Admin/productCatalogue">
+                                    <span class="pcoded-micon"><i class="feather icon-list"></i></span><span class="pcoded-mtext">Products Catalogue</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
+                        <div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <header class="navbar pcoded-header navbar-expand-lg header-default">
+            <div class="m-header">
+                <a class="mobile-menu" id="mobile-collapse1" href="#!"><span></span></a>
+                <a href="#!" class="b-brand">
+                    <div class="b-bg"><img src="~/images/HSBC_MASTER_LOGO.7e0cc4bf.svg" /></div>
+                </a>
+            </div>
+            <a class="mobile-menu" id="mobile-header" href="#!"></a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <a href="Logout"><i class="feather icon-lock"></i> Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </header>
+
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="overlay overlay-hide">
+                                    <div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header"><h5 class="card-title">Bulk Order Update</h5></div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 pull-right">
+                                                        <label>Upload the CSV file</label>
+                                                        <div class="input-group files">
+                                                            <input type="file" name="file" class="form-control fileupload" accept=".csv" />
+                                                            <div class="input-group-append"><button type="button" class="btn btn-danger form-control" id="uploadorder">Upload File</button></div>
+                                                        </div>
+                                                        <br />
+                                                        <a class="pt-4" href="/Admin/ordercsv">Download All Data (csv format)</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <h5 class="card-title">All Order Details<br /></h5>
+                                                    </div>
+                                                    <div class="filterDropDown col-md-5">
+                                                        <div class="dropdown">
+                                                            <button id="dropdown-basic" type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><i class="icon feather icon-filter"></i></button>
+                                                            <div class="dropdown-menu noti-body" onClick="event.stopPropagation();">
+                                                                <div class="dropdown-item">
+                                                                    <div class="noti-head">
+                                                                        <h6 class="d-inline-block m-b-0">Filter Data</h6>
+                                                                        <div class="float-right">
+                                                                            <span><a href="/admin/Order">Clear All</a></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <ul class="noti-body input-daterange" id="datepicker">
+                                                                        <li class="notification">
+                                                                            <small>From Date</small><br />
+                                                                            <div class="react-datepicker-wrapper">
+                                                                                <input type="text" class="input-sm form-control" id="startDate" name="start" />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="notification">
+                                                                            <small>To Date</small><br />
+                                                                            <div class="react-datepicker-wrapper">
+                                                                                <input type="text" class="input-sm form-control" id="endDate" name="end" />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="notification"><button type="button" class="btn btn-danger btn-sm" id="applyButton">Apply</button></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table id="data-table-zero" class="table" style="">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Deal</th>
+                                                                <th>Product Code</th>
+                                                                <th>Status</th>
+                                                                <th>Remarks</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            @foreach (var order in Model)
+                                                            {
+
+                                                                <tr>
+                                                                    <td>@order.id</td>
+                                                                    <td>@order.global_code</td>
+                                                                    <td>@order.status</td>
+                                                                    <td>@order.remarks</td>
+                                                                    <td><button class="btn btn-sm btn-danger editModalBtn" value="" data-toggle="modal" data-target="#editModal" data-id="@order.id">View/Edit</button></td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="editModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Details for ProductCode 9221</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Product Code</th>
+                                    <th>Product Name</th>
+                                    <th>Points</th>
+                                    <th>Status</th>
+                                    <th>Remark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img id="imageElementId"src="" class="editModalImg">
+                                    </td>
+                                    <td id="productCode">9221</td>
+                                    <td id="productName">GANT e-gift voucher INR 500</td>
+                                    <td><span id="qty">1</span>  x <span id="points">2000</span> </td>
+                                    <td >
+                                        <input id="status" type="text" name="" class="form-control" value="">
+                                    </td>
+                                    <td >
+                                        <textarea class="form-control" rows="1" id="remark"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer text-right">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="save" type="button" class="btn btn-primary"  data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/native.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.0/b-3.0.0/b-html5-3.0.0/b-print-3.0.0/fh-4.0.0/r-3.0.0/datatables.min.js"></script>
+
+    <script>
+
+
+
+
+
+
+        $(document).ready(function ()
+
+        {
+            var globalproduct;
+
+            $('.editModalBtn').click(function () {
+                // Get the product id from the data-id attribute of the button
+                var productId = $(this).data('id');
+                globalproduct = productId;
+                // Assuming you have a function to fetch product details by ID
+                var product = getProductDetails(productId);
+
+            });
+
+
+
+            // Event listener for the "Save" button in the modal
+            $('#editModal').on('click', '#save', function () {
+                // Get the values from the modal inputs
+                var modal = $('#editModal');
+                var productId = globalproduct;
+                var status = modal.find('#status').val();
+                var remark = modal.find('#remark').val();
+
+
+
+                // Send the data to the server-side action method
+                $.ajax({
+                    url: '/Admin/updateOrder', // Replace this with your actual endpoint
+                    method: 'POST',
+                    data: {
+                        productId: productId,
+                        status: status,
+                        remark: remark
+
+
+
+                    },
+                    success: function (response) {
+                        // Handle success response
+                        success1();
+                        window.location.reload(); // Reload the page or update the UI as needed
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error response
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+
+
+
+
+            function getProductDetails(productId) {
+                var product;
+
+                // Perform an AJAX request to fetch product details from the server
+                $.ajax({
+                    url: '/Admin/getOrderDetails', // Replace this with your actual endpoint
+                    method: 'GET',
+                    data: { productId: productId },
+                    async: false, // Make the request synchronous to wait for the response
+                    success: function (response) {
+
+                        var modal = $('#editModal');
+                        // Assuming the response is a JSON object containing product details
+                        modal.find('#imageElementId').attr('src', response.images);
+
+                        modal.find('#productCode').text(response.global_code);
+                        modal.find('#productName').text(response.product_name);
+                        modal.find('#qty').text(response.quantity);
+                        modal.find('#points').text(response.final_landed_price);
+                        modal.find('#status').val(response.status);
+                        modal.find('#remark').val(response.remarks);
+
+                        product = response.productId;
+                    },
+                    error: function (xhr, status, error) {
+                        alert(error);
+                        console.error(error);
+                    }
+                });
+
+                return product;
+            }
+
+
+
+
+
+
+
+
+
+            $('#mobile-collapse1').click(function () {
+                $('.pcoded-navbar').toggleClass('activeNav')
+                $(this).toggleClass('on');
+            });
+            new DataTable('#data-table-zero');
+        });
+
+        $(document).ready(function ()
+
+        {
+
+
+            new DataTable('#data-table-zero');
+
+            $('.input-daterange').datepicker({
+                format: "yyyy-mm-dd",
+                todayHighlight: true,
+                autoclose: true
+            });
+        });
+
+        $(document).ready(function ()
+
+        {
+
+
+        new DataTable('#data-table-zero');
+
+        $('.input-daterange').datepicker({
+            format: "yyyy-mm-dd",
+            todayHighlight: true,
+            autoclose: true
+        });
+
+        $('#applyButton').click(function () {
+            $(this).parents('.dropdown').find('button.dropdown-toggle').dropdown('toggle');
+
+            // Get the selected dates
+            var fromDate = $('#startDate').val();
+            var toDate = $('#endDate').val();
+
+            // Construct the URL with query parameters
+            var url = "/admin/Order?fromDate=" + fromDate + "&toDate=" + toDate;
+            window.location.href = url;
+        });
+
+
+               
+
+        $('#uploadorder').click(function () {
+        var formData = new FormData();
+        formData.append('file', $('.fileupload')[0].files[0]);
+
+        $.ajax({
+            url: '@Url.Action("uploadorder", "admin")',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                // Handle success response
+                success1();
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+
+    });
+
+        var useEdge = false
+        var useDebug = false
+        function success1() {
+            nativeToast({
+                message: 'Order Update Sucessfully',
+                type: 'success',
+                edge: useEdge,
+                debug: useDebug,
+                position: 'top',
+            })
+        }
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+﻿@model List<HSBCReward.Models.OrderHistoryModel>
+@{
+    ViewBag.Title = "Order History";
+}
+
+<main id="main" role="main">
+    <div class="container-fluid">
+       
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>OrderID</th>
+                        <th>Transaction ID</th>
+                        <th>Date</th>
+                        <th>ItemCode</th>
+                        <th>ItemName</th>
+                        <th>Qty</th>
+                        <th>PointsPerUnit</th>
+                        <th>TotalPoints</th>
+                        <th>ApprovalStatus</th>
+                        <th>Remark</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td><a href="javscript:void()" class="text-theme text-underline">11982</a></td>
+                            <td>@order.txn_id</td>
+                            <td>@order.created_at</td>
+                            <td>@order.txn_id</td>
+                            <td>@order.brand_name</td>
+                            <td>@order.quantity</td>
+                            <td>@order.final_landed_price</td>
+                            <td>@(order.quantity * order.final_landed_price)</td>
+                            <td>@order.status</td>
+                            <td></td>
+                            <td><span class="text-theme text-underline view-details" data-toggle="modal" data-target="#viwDetls" data-order-id="@order.txn_id">View Details</span></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+</main>
+
+<div class="modal" id="viwDetls">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+           
+            <div class="modal-header">
+                <h4 class="modal-title f1">Order #11982</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+           
+            <div class="modal-body">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><b>Transaction Id</b></td>
+                        <td>:</td>
+                        <td id="f1" class="f1"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Status</b></td>
+                        <td>:</td>
+                        <td id="f2"></td>
+                    </tr>
+                    <tr>
+                        <td>Order Placed</td>
+                        <td>:</td>
+                        <td id="f3"></td>
+                    </tr>
+                    <tr>
+                        <td>Points Per Unit</td>
+                        <td>:</td>
+                        <td id="f4"></td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>:</td>
+                        <td id="f5">1</td>
+                    </tr>
+                    <tr>
+                        <td>Product Code</td>
+                        <td>:</td>
+                        <td id="f6"></td>
+                    </tr>
+                    <tr>
+                        <td>Remark</td>
+                        <td>:</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <p>Note: Items will be delivered to your credit card statement mailing address updated in the Bank records. Electronic gift vouchers will be delivered only via email/SMS on the registered email Id and mobile number below</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.view-details').click(function () {
+            var orderId = $(this).data('order-id');
+
+            $.ajax({
+                url: '/OrderHistory/GetOrderDetails', // Replace with the appropriate URL for fetching order details
+                type: 'GET',
+                data: { orderId: orderId },
+                success: function (data) {
+                    $('#viwDetls').find('.f1').text(data.txn_id);
+                    $('#viwDetls').find('#f2').text(data.status);
+                    var jsonDate = data.created_at; // Assuming data.created_at contains "\/Date(milliseconds)\/"
+                    var dateObject = parseJsonDate(jsonDate);
+                    var formattedDate = dateObject.toLocaleString(); // Adjust the format as needed
+
+                    $('#viwDetls').find('#f3').text(formattedDate);
+                    $('#viwDetls').find('#f4').text(data.final_landed_price);
+                    $('#viwDetls').find('#f5').text(data.quantity);
+                    $('#viwDetls').find('#f6').text(data.client_product_code);
+
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors
+                    console.error(error);
+                }
+            });
+        });
+    });
+    function parseJsonDate(jsonDate) {
+        var milliseconds = parseInt(jsonDate.replace("/Date(", "").replace(")/", ""));
+        return new Date(milliseconds);
+    }
+</script>
+

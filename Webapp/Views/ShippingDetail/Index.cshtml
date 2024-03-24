@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Shipping Detail";
+}
+
+
+
+
+
+
+<main id="main" role="main">
+    <div class="container-fluid">
+      
+        <ul class="stepsWrap d-flex justify-content-between">
+            <li class="activated"><span>1</span><p>View Cart</p></li>
+            <li class="active"><span>2</span><p>Shipping</p></li>
+            <li><span>3</span><p>Preview</p></li>
+            <li><span>4</span><p>Order Summary</p></li>
+        </ul>
+
+        <h5 class="mt-4"><b>Shipping Address</b></h5>
+        <small class="text-theme mb-6">Note: Items will be delivered to your credit card statement mailing address updated in the Bank records. Electronic gift vouchers will be delivered only via email/SMS on the registered email ID and mobile number below</small>
+        <div class="table-responsive shipATblWrap">
+            <table class="table table-borderless">
+                <tr>
+                    <td style="bor">First Name</td>
+                    <td>Tapan Kamal</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>Das</td>
+                </tr>
+                <tr>
+                    <td>Mobile Number</td>
+                    <td>9842347584</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>aaaa@gamil.com</td>
+                </tr>
+            </table>
+        </div>
+        <small><b>Disclaimer:</b> If your statement address, email ID or mobile number need to be updated, please reach out to your nearest HSBC</small>
+        <div class="text-right mb-5">
+            <a type="button" class="btn transBtn" href="@Url.Action("Index","Cart")">Back</a>
+            <button type="button" class="btn btn-theme  ripple-effect" onclick="proceed()">Proceed</button>
+        </div>
+    </div>
+</main>
+<script>
+    function proceed() {
+       // Generate the URL for the controller action using Url.Action
+       var url = '@Url.Action("Index", "OrderPreview")'; // Replace "Action" and "Controller" with your actual action and controller names
+
+       // Redirect to the specified URL
+       window.location.href = url;
+   }
+     
+</script>

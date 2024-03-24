@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<link rel="stylesheet" href="~/Content/HomePage.css">
+
+<main>
+
+    <div class="container " style="overflow: hidden;">
+        <div class="title text-center">
+            <p>  Welcome to HSBC Credit Card Rewards Programme </p>
+        </div>
+        <div class="subtitle text-center">
+            <p>Select your Credit Card Type to Proceed</p>
+        </div>
+        @{
+            // Array of card data (can be fetched from local storage or an API)
+            var cardsData = new[] {
+        new { imageUrl = Url.Content("~/images/CVC.png"), description = "Premier Credit Card", link = "#", data = "PRE" },
+        new { imageUrl = Url.Content("~/images/CCA.png"), description = "Platinum / Classic / Gold / Smart Value and other credit card variants", link = "#", data = "OTH" },
+        new { imageUrl = Url.Content("~/images/OTH.png"), description = "Classic Credit Card", link = "#", data = "OTH" }
+    };
+        }
+
+        <div class="container">
+            <div class="row p-3" id="cardContainer">
+                @foreach (var cardData in cardsData)
+                {
+                    <div class="col-12 col-sm-4 cardWrap text-center">
+                        <div class="" data-card="@cardData.data">
+                            <!-- Add data attribute to store card data -->
+                            <a href="@Url.Action("Index", "Catalogue", new { customerType = cardData.data })">
+
+                                <img src="@cardData.imageUrl" class="img-fluid carImg" alt="Card Image">
+                            </a>
+                             <p class="card-text">@cardData.description</p>
+                             
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="notes">
+            <p>
+                <ul>
+                    <li>HSBC Credit Card Rewards Programme is applicable on select HSBC Credit Cards products only.</li>
+                    <li>Redemptions against the rewards catalogue are allowed on Primary cards only. Add-on credit cards will not be displayed. If any of your credit card(s) are not displayed here, please contact HSBC Phone Banking.</li>
+                    <li>“Club and Redeem” option is currently not available on the online catalogue. Please call HSBC PhoneBanking in case you want to combine reward points of multiple HSBC Credit Cards to place the redemption request.</li>
+                    <li>Handling charges of INR 50/- per redemption will be levied for HSBC Classic, Gold, Smart Value, Platinum and Advance Platinum Credit Cards, except on donation requests.</li>
+                    <li>To know more about the HSBC Credit Cards rewards program, click <a href="https://www.hsbc.co.in/credit-cards/rewards/" target="_blank">here</a>.</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+
+</main>
+
+<link rel="stylesheet" href="~/Content/HomePage.css">
+
+
+

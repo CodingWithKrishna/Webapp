@@ -1,0 +1,81 @@
+﻿@media (max-width: 375px) {
+    /* Reduce font size for navigation elements */
+    .navbar {
+        font-size: 14px; /* Adjust as needed */
+        padding-inline:5px;
+       
+        
+    }
+}
+.collapse {
+    z-index: 9999;
+}
+
+.navbar-brand {
+    padding-right: 40px;
+}
+
+
+#navbar {
+    z-index: 1000;
+    overflow: hidden;
+    top: 0;
+}
+header {
+    overflow-y: auto;
+    max-height: calc(100vh - 50px);
+}
+
+
+
+.sticky + .content {
+    padding-top: 60px;
+}
+
+.content {
+    padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.custom-navbar {
+    padding-bottom: 30px !important;
+}
+
+.custom-logon {
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-left: 10px;
+    padding-top: 0; /* Remove top padding */
+    padding-bottom: 0;
+}
+
+    .custom-logon span {
+        background-color: rgb(219, 0, 17);
+        padding: 19px; /* Adjust padding to change height and width */
+
+        color: inherit;
+    }
+
+a {
+    text-decoration: none !important;
+   
+}
+.container-fluid {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
+}
+
+.nav1-height {
+    height: 2.25rem !important;
+}
+
+.HSBCBold {
+    font-family: 'UniversArabicforHSBC',sans-serif;
+}
